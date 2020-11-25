@@ -126,8 +126,9 @@ const TagsContainer = styled.div`
 `;
 const DisplayTagsContainers = styled.div`
   display: flex;
-  justify-content: space-between;
-  width: fit-content;
+  justify-content: space-around;
+  width: auto;
+  margin: auto;
 `;
 const TagsP = styled.p`
   color: white;
