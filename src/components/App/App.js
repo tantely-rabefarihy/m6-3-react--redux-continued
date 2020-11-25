@@ -6,7 +6,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import GlobalStyles from "../GlobalStyles";
-import ArtistRoute from "../ArtistRoute";
+import { ArtistRoute } from "../ArtistRoute";
 import {
   requestAccessToken,
   receiveAccessToken,
@@ -15,9 +15,10 @@ import {
 import { useDispatch } from "react-redux";
 
 const DEFAULT_ARTIST_ID = "3SKza3YPBri1k43LB1Tqy4";
-const dispatch = useDispatch();
 
 const App = () => {
+  const dispatch = useDispatch();
+
   React.useEffect(() => {
     dispatch(requestAccessToken());
 
@@ -27,7 +28,6 @@ const App = () => {
         dispatch(receiveAccessToken(json.access_token));
       })
       .catch((err) => {
-        console.error(err);
         dispatch(receiveAccessTokenError());
       });
   }, []);
@@ -35,11 +35,13 @@ const App = () => {
   return (
     <Router>
       <GlobalStyles />
-      <Redirect to={`/artists/${DEFAULT_ARTIST_ID}`} />
       <Switch>
-        <Route path="/artists/:id" />
-        <ArtistRoute />
-        <Route />
+        <Route path="/artists/:id">
+          <ArtistRoute />
+        </Route>
+        <Route path="/">
+          <Redirect to={`/artists/${DEFAULT_ARTIST_ID}`} />
+        </Route>
       </Switch>
     </Router>
   );

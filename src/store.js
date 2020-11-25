@@ -2,7 +2,7 @@ import { createStore } from "redux";
 
 import reducer from "./reducers";
 
-export default function configureStore(initialState) {
+export const configureStore = (initialState) => {
   const store = createStore(
     reducer,
     initialState,
@@ -10,4 +10,4 @@ export default function configureStore(initialState) {
   );
 
   return store;
-}
+};

@@ -1,4 +1,4 @@
-import { loadPartialConfig } from "@babel/core";
+// import { loadPartialConfig } from "@babel/core";
 
 const initialState = {
   currentArtist: null,
@@ -17,15 +17,17 @@ export default function artistReducer(state = initialState, action) {
     case "RECEIVE_ARTIST_INFO": {
       return {
         ...state,
+        status: "success",
         currentArtist: {
-          profile: action.data,
+          profile: { ...action.data },
         },
       };
     }
     case "RECEIVE_ARTIST_INFO_ERROR": {
       return {
         ...state,
-        error: "error",
+        currentArtist: null,
+        error: action.error,
         status: "error",
       };
     }

@@ -15,10 +15,11 @@ export const requestArtistInfo = () => ({
   type: "REQUEST_ARTIST_INFO",
 });
 
-export const receiveArtistInfo = () => ({
+export const receiveArtistInfo = (data) => ({
   type: "RECEIVE_ARTIST_INFO",
+  data,
 });
 
-export const receiveArtisitInfoError = () => ({
+export const receiveArtistInfoError = () => ({
   type: "RECEIVE_ARTIST_INFO_ERROR",
 });
