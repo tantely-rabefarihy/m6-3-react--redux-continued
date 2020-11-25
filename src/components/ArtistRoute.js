@@ -15,8 +15,6 @@ export const ArtistRoute = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  const state = useSelector((state) => state);
-
   // ********
 
   React.useEffect(() => {
@@ -34,7 +32,7 @@ export const ArtistRoute = () => {
   const currentArtist = useSelector((state) => state.artists.currentArtist);
   const artist = currentArtist ? currentArtist.profile.name : undefined;
   const genres = currentArtist
-    ? currentArtist.profile.genres.slice(0, 2)
+    ? currentArtist.profile.genres.slice(2)
     : undefined;
   const numFollowers = currentArtist
     ? new Intl.NumberFormat("en", { notation: "compact" }).format(
@@ -50,7 +48,7 @@ export const ArtistRoute = () => {
     imageUrl = undefined;
   }
 
-  console.log({ currentArtist });
+  console.log({ currentArtist, genres });
   return (
     <Wrapper>
       {currentArtist ? (
@@ -62,14 +60,14 @@ export const ArtistRoute = () => {
             <Avatar src={imageUrl} />
           </AvatarContainer>
           <Followers>
-            <FollowersCount>{numFollowers}</FollowersCount> Followers
+            <FollowersCount>{numFollowers}</FollowersCount> followers
           </Followers>
           <TopTracks>top tracks</TopTracks>
           <TagsContainer>
             <TagsP>tags</TagsP>
             <DisplayTagsContainers>
               <DisplayTag>{genres[0]}</DisplayTag>
-              <DisplaySecondTag>{genres[1]}</DisplaySecondTag>
+              <DisplaySecondTag>{genres[2]}</DisplaySecondTag>
             </DisplayTagsContainers>
           </TagsContainer>
         </>
@@ -80,30 +78,59 @@ export const ArtistRoute = () => {
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  background-color: black;
+  max-height: 580px;
+  height: 100vh;
+  margin: auto;
+  text-align: -webkit-center;
+`;
 
-const NameContainer = styled.div``;
-const ArtistName = styled.h1``;
+const NameContainer = styled.div`
+  position: relative;
+  top: 170px;
+  z-index: 1;
+`;
+const ArtistName = styled.h1`
+  color: white;
+  font-family: bold;
+  font-family: Montserrat, sans-serif;
+  font-size: 30px;
+  padding: 0;
+  margin: 0;
+`;
 
 const AvatarContainer = styled.div``;
-const Avatar = styled.img``;
-const Followers = styled.p``;
-const FollowersCount = styled.span``;
+const Avatar = styled.img`
+  width: 175px;
+  height: auto;
+  border-radius: 50%;
+  position: relative;
+`;
+const Followers = styled.p`
+  color: white;
+`;
+const FollowersCount = styled.span`
+  color: #ff4fd8;
+`;
 
 const TopTracks = styled.div`
+  color: white;
   font-size: 1.5rem;
   margin-top: 100px;
 `;
 
 const TagsContainer = styled.div`
-  margin-top: 40px;
-  margin-top: 130px;
+  margin: 10px 0;
+  height: 100%;
 `;
 const DisplayTagsContainers = styled.div`
   display: flex;
   justify-content: space-between;
+  width: fit-content;
 `;
 const TagsP = styled.p`
+  color: white;
   font-size: 1.5rem;
 `;
 
@@ -111,8 +138,11 @@ const DisplayTag = styled.div`
   background: rgba(75, 75, 75, 0.4);
   padding: 10px;
   border-radius: 5px;
+  color: white;
 `;
 
 const DisplaySecondTag = styled(DisplayTag)`
-  margin-left: 5px;
+  background: rgba(75, 75, 75, 0.4);
+  padding: 10px;
+  border-radius: 5px;
 `;
